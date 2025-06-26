@@ -1,0 +1,26 @@
+{
+  "name": "org.openvrctools.selectionhelper",
+  "displayName": "OpenVRCTools - Selection Helper",
+  "version": "1.2.4",
+  "license": "MIT",
+  "description": "Unity Editor package to make selecting certain objects easier and less tedious",
+  "keywords": [
+	  "Editor",
+    "Utility",
+    "Selection"
+  ],
+  "author": {
+    "email":"laura@chatfrog.games",
+    "name":"LauraRozier",
+    "url":"https://github.com/LauraRozier"
+  },
+  "legacyFolders": {
+    "Assets\\DreadScripts\\Selection Helper": "6ec3e159e94175241a20166127b7da81",
+    "Assets\\DreadScripts\\SelectionHelper": "e0c37a2eebed7f54eb05af2439a04f27",
+    "Assets\\OpenVRCTools\\Selection Helper": "-1",
+    "Assets\\OpenVRCTools\\SelectionHelper": "-1"
+  },
+  "legacyFiles": {},
+  "type": "tool",
+  "unity": "2019.4"
+}
