@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System.IO;
 
 namespace OpenVRCTools.SelectionHelper
 {
@@ -29,41 +30,45 @@ namespace OpenVRCTools.SelectionHelper
         }
 
         private static SaveSelection _instance;
-        private static SaveSelection instance => _instance ? _instance : GetInstance();
+        private static SaveSelection instance =>
+            _instance ? _instance : GetInstance();
 
         public static string folderPath = "OpenVRCTools/Saved Data/SaveSelection";
-        private static string SavePath => folderPath + "/SaveSelectionData.txt";
+        private static string SavePath =>
+            folderPath + "/SaveSelectionData.txt";
 
         public static SaveSelection GetInstance()
         {
             if (_instance == null && Exists())
             {
                 _instance = CreateInstance<SaveSelection>();
-                using (System.IO.StreamReader reader = new System.IO.StreamReader(SavePath))
+                using (StreamReader reader = new StreamReader(SavePath))
                     JsonUtility.FromJsonOverwrite(reader.ReadToEnd(),_instance);
             }
+
             if (_instance == null)
             {
                 _instance = CreateInstance<SaveSelection>();
-                string directoryPath = System.IO.Path.GetDirectoryName(SavePath);
-                if (!System.IO.Directory.Exists(directoryPath))
-                    System.IO.Directory.CreateDirectory(directoryPath);
+                string directoryPath = Path.GetDirectoryName(SavePath);
+
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 string json = JsonUtility.ToJson(_instance);
-                using (System.IO.StreamWriter writer = System.IO.File.CreateText(SavePath))
+                using (StreamWriter writer = File.CreateText(SavePath))
                     writer.Write(json);
             }
+
             return _instance;
         }
 
         public static void Save()
         {
             string json = EditorJsonUtility.ToJson(_instance);
-            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(SavePath))
+            using (StreamWriter writer = new StreamWriter(SavePath))
                 writer.Write(json);
         }
-        public static bool Exists()
-        {
-            return System.IO.File.Exists(SavePath);
-        }
+        public static bool Exists() =>
+            File.Exists(SavePath);
     }
 }
